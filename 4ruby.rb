@@ -2,7 +2,7 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 require 'open-uri'
-require 'fc_class'
+require './fc_class'
 
 def each_post(&block)
 	@pages.each do |thread|
