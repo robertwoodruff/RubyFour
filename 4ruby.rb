@@ -4,29 +4,6 @@ require 'net/http'
 require 'open-uri'
 require './fc_class'
 
-def each_post(&block)
-	@pages.each do |thread|
-	thread.each do |threadt|
-		threadt.each do |post|
-		yield(post)
-		end
-		end
-	end
-end
-
-  def each_thread(&block)
-    
-    @pages.each do |page|
-    
-      page['threads'].each do |thread|
-        
-        yield(thread)
-      end
- 
-    end
-  end
-
-
 module JsonParser
   def self.get(json)
     
@@ -58,21 +35,36 @@ ARGV.each_with_index do |argument, i|
 		end
 	if argument.downcase.include? "list"
 		$option = "list"
-		end	
+		end
+	if argument.downcase.include? "mirror"
+		puts "Command is ab"
+		$command = "ab"
+		$directory = ARGV.to_a[i+1]
+		end
 end
 fc = FourChan.new($board)
+
+
+
+unless $command.nil?
+
+if $command.include? "ab"
+  fc.archboard($directory)
+  end
+  
+
 
 if $command.include? "search"
   fc.search_for $term
 end
-
+unless $option.nil?
+if $option.include? "list"
+puts "including a list"
+  fc.list
+end
 if $option.include? "archive"
   fc.archive_threads($directory)
 end
-
-if $option.include? "list"
-  fc.list
 end
-
 end
-
+end
