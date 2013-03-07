@@ -2,7 +2,7 @@ class Threads
   def initialize(threadno, board)
     @threadno = threadno
     @board = board
-    @json = JsonParser::get("www.boards.4chan.org/#{board}/#{threadno}.json")
+    @json = JsonParser::get("api.4chan.org/#{board}/#{threadno}.json")
   end
 
   def download_thread(directory)

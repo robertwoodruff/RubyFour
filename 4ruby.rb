@@ -34,7 +34,7 @@ fc = FourChan.new($board)
 unless $command.nil?
 
 if $command.include? "ab"
-  fc.archboard($directory)
+  fc.archive_board($directory)
   end
   
 

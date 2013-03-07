@@ -1,4 +1,5 @@
-require './threads_class'
+require 'threads_class'
+require 'boards_class'
 class FourChan
 
   def initialize(board)
@@ -26,8 +27,8 @@ class FourChan
     
   end
   
-  def archive_board
-  Boards.new(@board).archive_board
+  def archive_board(directory)
+  Boards.new(@board).archive_board(directory)
   end
   
 end
