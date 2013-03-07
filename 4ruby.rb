@@ -5,21 +5,6 @@ require 'open-uri'
 require 'optparse'
 require './fc_class'
 
-module JsonParser
-  def self.get(json)
-    
-    JSON.parse(HttpWrapper::get(json))
-  end
-end
-
-
-module HttpWrapper
-  def self.get(uri)
-  sleep(1)
-    Net::HTTP.get(URI(uri))
-  end
-end
-
 options = OptionParser.new do |opt|
   opt.on '-b', '--board BOARD', 'The 4chan board to work on.' do |o|
     $board = o
@@ -43,7 +28,7 @@ fc = FourChan.new($board)
 abort 'Please enter a command' if $command.nil?
 
 if $command == :ab
-  fc.archboard $directory
+  fc.archive_board($directory)
 end
 if $command == :search
   fc.search_for $term
