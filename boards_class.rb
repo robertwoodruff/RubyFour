@@ -21,7 +21,7 @@ class Boards
   
   def archive_board(directory)
 	  each_thread do |thread|
-		Threads.new(thread["no"], @board).download_thread(directory)
+		Threads.new(thread["no"], @board).async.download_thread(directory)
 	  end
   end
 

@@ -18,11 +18,14 @@ include Celluloid
   end
 
 def download_image(time, extension)
-    print "Got #{time}#{extension} in"
+    puts "Getting http://images.4chan.org/#{@board}/src/#{time}#{extension}"
     open("#{@directory}/#{time}#{extension}", "w") do |file|
     file << open("http://images.4chan.org/#{@board}/src/#{time}#{extension}").read
   end
-    
+rescue Errno::ECONNREFUSED => e
+puts "That file doesn't exist. Was the thread pruned?"
+rescue SocketError::getaddrinfo => e
+puts "That file does not exist. Was the thread pruned?"
 end
 
 def download_index
