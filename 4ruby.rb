@@ -44,7 +44,6 @@ if $command.include? "search"
 end
 unless $option.nil?
 if $option.include? "list"
-puts "including a list"
   fc.list
 end
 if $option.include? "archive"

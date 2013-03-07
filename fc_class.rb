@@ -9,7 +9,7 @@ class FourChan
 
   def search_for(terms)
     @threadlist = []
-    @threadlist = Threads.new(board).search_for(terms)
+    @threadlist = Boards.new(@board).search_for(terms)
   end
   
   def archive_threads(directory)
