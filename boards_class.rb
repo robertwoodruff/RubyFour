@@ -4,8 +4,7 @@ require './threads_class'
 class Boards
   def initialize(board)
     @board = board
-    puts "Trying to parse api.4chan.org/#{board}/catalog.json"
-    @json = JsonParser::get("api.4chan.org/#{board}/catalog.json")
+    @json = JsonParser::get("http://api.4chan.org/#{board}/catalog.json")
   end
   
   def search_for(terms)

@@ -11,9 +11,6 @@ end
 module HttpWrapper
   def self.get(uri)
   sleep(1)
-  puts "Getting #{uri}"
-  theuri = URI(uri)
-  puts "Uri is #{theuri}"
-    Net::HTTP.get(theuri)
+    Net::HTTP.get(URI(uri))
   end
 end

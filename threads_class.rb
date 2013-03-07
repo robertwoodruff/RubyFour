@@ -2,7 +2,7 @@ class Threads
   def initialize(threadno, board)
     @threadno = threadno
     @board = board
-    @json = JsonParser::get("api.4chan.org/#{board}/#{threadno}.json")
+    @json = JsonParser::get("http://api.4chan.org/#{board}/res/#{threadno}.json")
   end
 
   def download_thread(directory)
@@ -22,7 +22,7 @@ def download_image(time, extension)
 end
 
 def download_index
-  index = HttpWrapper::get("http://boards.4chan.org/#{@board}/res/#{@thread}")
+  index = HttpWrapper::get("http://boards.4chan.org/#{@board}/res/#{@threadno}")
   open("#{@directory}/#{@thread}.html", "w") do |file|
     file.write(index)
     end
