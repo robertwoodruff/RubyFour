@@ -4,21 +4,6 @@ require 'net/http'
 require 'open-uri'
 require './fc_class'
 
-module JsonParser
-  def self.get(json)
-    
-    JSON.parse(HttpWrapper::get(json))
-  end
-end
-
-
-module HttpWrapper
-  def self.get(uri)
-  sleep(1)
-    Net::HTTP.get(URI(uri))
-  end
-end
-
 unless ARGV[1].nil?
 
 ARGV.each_with_index do |argument, i|
@@ -49,7 +34,7 @@ fc = FourChan.new($board)
 unless $command.nil?
 
 if $command.include? "ab"
-  fc.archboard($directory)
+  fc.archive_board($directory)
   end
   
 
