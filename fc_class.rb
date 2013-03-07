@@ -3,17 +3,13 @@ class FourChan
 
   def initialize(board)
     @board = board
-    @api_url = "http://api.4chan.org/#{@board}/catalog.json"
   end
 
-  def catalog
-    JsonParser::get(@api_url)
-  end
 
   def search_for(terms)
     @threadlist = []
     puts "Terms are #{terms}"
-    @threadlist = Threads.new(catalog).search_for(terms)
+    @threadlist = Threads.new(board).search_for(terms)
   end
   
   def archive_threads(directory) #Saves the threads you've found to a directory
