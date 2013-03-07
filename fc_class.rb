@@ -1,5 +1,5 @@
-require 'threads_class'
-require 'boards_class'
+require './threads_class'
+require './boards_class'
 class FourChan
 
   def initialize(board)

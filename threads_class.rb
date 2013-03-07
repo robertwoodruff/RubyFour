@@ -1,4 +1,6 @@
+require 'celluloid'
 class Threads
+include Celluloid
   def initialize(threadno, board)
     @threadno = threadno
     @board = board
@@ -16,9 +18,11 @@ class Threads
   end
 
 def download_image(time, extension)
+    print "Got #{time}#{extension} in"
     open("#{@directory}/#{time}#{extension}", "w") do |file|
     file << open("http://images.4chan.org/#{@board}/src/#{time}#{extension}").read
   end
+    
 end
 
 def download_index
@@ -30,13 +34,14 @@ end
 
 def each_post(&block)
   @json.each do |thread|
-      thread.each do |allposts|
-                allposts.each do |post|
-                yield(post)
-                end
-              end
-           end
+      thread.each do |allpost|
+      if allpost.is_a? Array
+        allpost.each do |post|
+	      yield(post)
+          end
+       end
+   end
+           
 end
-
-
+end
 end

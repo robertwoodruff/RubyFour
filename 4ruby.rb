@@ -18,7 +18,7 @@ options = OptionParser.new do |opt|
     $directory = o
   end
   opt.on '-m', '--mirror DIR', 'Create a mirror' do |o|
-    $option = :ab # TODO - Rename?
+    $command = :mirror # TODO - Rename?
     $directory = o
   end
   opt.on '-l', '--list', 'List the results' do |o|
@@ -31,7 +31,7 @@ fc = FourChan.new($board)
 
 abort 'Please enter a command' if $command.nil?
 
-if $command == :ab
+if $command == :mirror
   fc.archive_board($directory)
 end
 if $command == :search
