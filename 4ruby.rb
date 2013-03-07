@@ -21,6 +21,10 @@ options = OptionParser.new do |opt|
     $option = :ab # TODO - Rename?
     $directory = o
   end
+  opt.on '-l', '--list', 'List the results' do |o|
+    $option = :list
+  end
+
 end.tap {|o| o.parse!} # Destructively edit ARGV removing anything that matched.
 
 fc = FourChan.new($board)
