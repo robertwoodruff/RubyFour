@@ -2,6 +2,7 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 require 'open-uri'
+require 'optparse'
 require './fc_class'
 
 module JsonParser
@@ -19,52 +20,40 @@ module HttpWrapper
   end
 end
 
-unless ARGV[1].nil?
+options = OptionParser.new do |opt|
+  opt.on '-b', '--board BOARD', 'The 4chan board to work on.' do |o|
+    $board = o
+  end
+  opt.on '-s', '--search TEXT', 'Filters the search by text' do |o|
+    $command = :search
+    $term = o
+  end
+  opt.on '-a', '--archive DIR', 'Directory to archive to' do |o|
+    $option = :archive
+    $directory = o
+  end
+  opt.on '-m', '--mirror DIR', 'Create a mirror' do |o|
+    $option = :ab # TODO - Rename?
+    $directory = o
+  end
+end.tap {|o| o.parse!} # Destructively edit ARGV removing anything that matched.
 
-ARGV.each_with_index do |argument, i|
-	if argument.downcase.include? "board"
-		$board = ARGV.to_a[i+1] 
-		end
-	if argument.downcase.include? "search"
-		$command = "search"
-		$term = ARGV.to_a[i+1] 
-		end
-	if argument.downcase.include? "archive"
-		$option = "archive"
-		$directory = ARGV.to_a[i+1]
-		end
-	if argument.downcase.include? "list"
-		$option = "list"
-		end
-	if argument.downcase.include? "mirror"
-		puts "Command is ab"
-		$command = "ab"
-		$directory = ARGV.to_a[i+1]
-		end
-end
 fc = FourChan.new($board)
 
+abort 'Please enter a command' if $command.nil?
 
-
-unless $command.nil?
-
-if $command.include? "ab"
-  fc.archboard($directory)
-  end
-  
-
-
-if $command.include? "search"
+if $command == :ab
+  fc.archboard $directory
+end
+if $command == :search
   fc.search_for $term
 end
 unless $option.nil?
-if $option.include? "list"
-puts "including a list"
-  fc.list
+  if $option == :list
+    fc.list
+  end
+  if $option == :archive
+    fc.archive_threads $directory
+  end
 end
-if $option.include? "archive"
-  fc.archive_threads($directory)
-end
-end
-end
-end
+
