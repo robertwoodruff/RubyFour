@@ -23,7 +23,7 @@ end
 
 def download_index
   index = HttpWrapper::get("http://boards.4chan.org/#{@board}/res/#{@threadno}")
-  open("#{@directory}/#{@thread}.html", "w") do |file|
+  open("#{@directory}/#{@threadno}.html", "w") do |file|
     file.write(index)
     end
 end
