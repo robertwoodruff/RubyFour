@@ -1,7 +1,6 @@
 To Do:
 
->Seperate the "Threads" class into two classes, "Boards" and "Threads", with methods for each
 >Maybe add an "Archive all of 4chan" option?
->Multi-Thread the "Archive" and "Mirror" options
+>Integrate the multithread branch into mainline
 >Make readme less crap
 >Add a GUI front-end?

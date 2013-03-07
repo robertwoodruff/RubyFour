@@ -1,6 +1,6 @@
-require 'celluloid'
+
 class Threads
-include Celluloid
+
   def initialize(threadno, board)
     @threadno = threadno
     @board = board
