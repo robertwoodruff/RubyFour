@@ -2,24 +2,21 @@ class Threads
   def initialize(threadno, board)
     @threadno = threadno
     @board = board
-    @json = sonParser::get("www.boards.4chan.org/#{board}/#{@threadno}.json")
+    @json = JsonParser::get("www.boards.4chan.org/#{board}/#{threadno}.json")
   end
-  
-def download_thread(directory)
-  @directory = directory
-  self.download_index
-  each_post do |p|
-  unless p["ext"].nil?
-  download_image(p["tim"], p["ext"])
+
+  def download_thread(directory)
+	@directory = directory
+	self.download_index
+	each_post do |p|
+	  unless p["ext"].nil?
+	  download_image(p["tim"], p["ext"])
+	  end
+	end
   end
-end
-end
-
-
 
 def download_image(time, extension)
     open("#{@directory}/#{time}#{extension}", "w") do |file|
-    puts "Getting http://images.4chan.org/#{@board}/src/#{time}#{extension}"
     file << open("http://images.4chan.org/#{@board}/src/#{time}#{extension}").read
   end
 end

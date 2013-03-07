@@ -8,29 +8,26 @@ class FourChan
 
   def search_for(terms)
     @threadlist = []
-    puts "Terms are #{terms}"
     @threadlist = Threads.new(board).search_for(terms)
   end
   
-  def archive_threads(directory) #Saves the threads you've found to a directory
+  def archive_threads(directory)
     @threadlist.each do |thread|
-	Threads.new(@api_url).download_thread(@board, onethread(thread), directory)
+	Threads.new(thread, @board).download_thread(directory)
     end
   end
-  def onethread(num)
-    JsonParser::get("http://api.4chan.org/#{@board}/res/#{num}.json")
-  end
+  
   def list
-	
     if @threadlist.is_a? Array
     @threadlist.each do |t|
     puts t
     end
-    end
+  end
     
   end
-
-def archboard(directory)
-  Threads.new(catalog).archive_board(@board, directory)
+  
+  def archive_board
+  Boards.new(@board).archive_board
   end
+  
 end
