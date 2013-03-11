@@ -13,7 +13,7 @@ class FourChan
   end
   
   def archive_threads(directory)
-    @threadlist.each do |thread|
+    @threadlist.sort.reverse_each do |thread|
 	Threads.new(thread, @board).download_thread(directory)
     end
   end
